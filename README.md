@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# babel-preset-react-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This package includes the Babel preset used by [Create React App](https://github.com/facebook/create-react-app).<br>
+Please refer to its documentation:
 
-## Available Scripts
+- [Getting Started](https://facebook.github.io/create-react-app/docs/getting-started) – How to create a new app.
+- [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create React App.
 
-In the project directory, you can run:
+## Usage in Create React App Projects
 
-### `npm start`
+The easiest way to use this configuration is with [Create React App](https://github.com/facebook/create-react-app), which includes it by default. **You don’t need to install it separately in Create React App projects.**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Usage Outside of Create React App
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+If you want to use this Babel preset in a project not built with Create React App, you can install it with the following steps.
 
-### `npm test`
+First, [install Babel](https://babeljs.io/docs/setup/).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Then install babel-preset-react-app.
 
-### `npm run build`
+```sh
+npm install babel-preset-react-app --save-dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Then create a file named `.babelrc` with following contents in the root folder of your project:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```json
+{
+  "presets": ["react-app"]
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This preset uses the `useBuiltIns` option with [transform-object-rest-spread](https://babeljs.io/docs/plugins/transform-object-rest-spread/) and [transform-react-jsx](https://babeljs.io/docs/plugins/transform-react-jsx/), which assumes that `Object.assign` is available or polyfilled.
 
-### `npm run eject`
+## Usage with Flow
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Make sure you have a `.flowconfig` file at the root directory. You can also use the `flow` option on `.babelrc`:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```json
+{
+  "presets": [["react-app", { "flow": true, "typescript": false }]]
+}
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Usage with TypeScript
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Make sure you have a `tsconfig.json` file at the root directory. You can also use the `typescript` option on `.babelrc`:
 
-## Learn More
+```json
+{
+  "presets": [["react-app", { "flow": false, "typescript": true }]]
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Absolute Runtime Paths
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Absolute paths are enabled by default for imports. To use relative paths instead, set the `absoluteRuntime` option in `.babelrc` to `false`:
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+{
+  "presets": [["react-app", { "absoluteRuntime": false }]]
+}
+```
